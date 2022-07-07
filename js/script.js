@@ -67,3 +67,37 @@ const images = [
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et temporibus voluptatum suscipit tempore aliquid deleniti aut veniam.',
     },
   ];
+
+  //recupero i bottonni
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
+let imgsWrapper = [];
+
+
+images.forEach((element) => {
+
+    const urlImg = element.url;
+    const titleImg = element.title;
+    const titleDescription = element.description;
+
+    const singleImgWrapper = document.createElement('div');
+    carousel.append(singleImgWrapper);
+
+    let htmlElements = carouselImageHtml("description","title","paragraph",urlImg,titleImg,titleDescription); 
+    singleImgWrapper.innerHTML += htmlElements;
+    imgsWrapper.push(singleImgWrapper);
+});
+
+
+// funzione per creare l'html da usare per le immagini del carosello
+function carouselImageHtml(classForDescription, classTitle, classParagraph, imgSrc, title, paragraph) {
+
+    let singleImg = `
+        <div class=${classForDescription}>
+            <h2 class=${classTitle}>${title}</h2>
+            <div class=${classParagraph}>${paragraph}</div>
+        </div>
+        <img src="${imgSrc}" alt="carousel-img">`
+
+    return singleImg;
+}
