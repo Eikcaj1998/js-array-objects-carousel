@@ -71,7 +71,7 @@ const images = [
   //recupero i bottonni
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
-let imgsWrapper = [];
+let gallery = [];
 
 
 images.forEach((element) => {
@@ -80,13 +80,44 @@ images.forEach((element) => {
     const titleImg = element.title;
     const titleDescription = element.description;
 
-    const singleImgWrapper = document.createElement('div');
-    carousel.append(singleImgWrapper);
+    const singleImg = document.createElement('div');
+    carousel.append(singleImg);
 
     let htmlElements = carouselImageHtml("description","title","paragraph",urlImg,titleImg,titleDescription); 
-    singleImgWrapper.innerHTML += htmlElements;
-    imgsWrapper.push(singleImgWrapper);
+    singleImg.innerHTML += htmlElements;
+    gallery.push(singleImg);
 });
+
+// metto la prima img visibile e tramite le frecce vado avanti ed indietro
+let currentActive = 0;
+gallery[currentActive].classList.add('active');
+//bottone di destra
+nextButton.addEventListener('click', () => {
+
+    gallery[currentActive].classList.remove('active');
+
+    currentActive++;
+
+    if (currentActive === gallery.length){
+        currentActive = 0;
+    }
+
+    gallery[currentActive].classList.add('active');
+})
+//bottone di sinistra
+prevButton.addEventListener('click', function(){
+
+    gallery[currentActive].classList.remove('active');
+    
+    currentActive--;
+
+    if (currentActive === -1){
+        currentActive = gallery.length-1;
+    }
+
+    gallery[currentActive].classList.add('active'); 
+})
+
 
 
 // funzione per creare l'html da usare per le immagini del carosello
